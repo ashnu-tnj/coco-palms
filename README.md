@@ -100,12 +100,35 @@ line and the logo plate.
   as step 04, but nothing on camera shows it. The hygiene section now uses a
   hand-sorting frame captioned for what it actually is. If washing matters
   commercially, it needs to be shot.
-- **There is no real product photography.** The bottle is a background element on
-  the founder's desk; its base is occluded by a nameplate in every frame, so the
-  pack shot is cropped to bleed off the card. A studio shot of the actual bottle
-  is the single highest-value asset to add.
 - The macro shots (oil pour, PLC screen) are shallow-focus by construction and
   will never be sharp.
+
+### The pack shot
+
+`site/img/bottle.webp` is the one image **not** taken from the film — it is a
+supplied studio shot, and it replaced a soft frame of a bottle sitting on the
+founder's desk whose base was occluded by a nameplate.
+
+It arrived on a grey studio backdrop, which had to become the card's `--cream`.
+Cutting the bottle out was not an option: the glass is clear, so the backdrop
+shows straight through it and every key leaks inside — a sobel-barrier flood
+fill kept only the label. Instead the backdrop is *modelled* and replaced:
+
+1. Fit a smooth polynomial to the backdrop over a border band, rejecting
+   outliers so the bottle's contact shadow cannot drag the fit.
+2. Divide that model out and multiply flat `--cream` back in, with a filmic
+   rolloff so cap speculars compress instead of clipping. Everything that is not
+   backdrop survives as a ratio — including the backdrop seen *through* the
+   glass, which re-tones with it, exactly as if it had been shot on a cream sweep.
+3. Flatten the residual vignette, then extend the now-flat backdrop sideways to
+   reach the card's 16:10 rather than cropping a tall subject to a wide frame.
+
+The delivered backdrop matches the section tint to within 1/255, so the image
+edge is invisible against the card.
+
+The deck has **not** been given this shot. `assets/deck-images/bottle.jpg` is
+still the old film frame, and slide 3's photo box is a 2.74:1 strip rather than
+the site's 16:10, so it needs its own framing plus a `node deck.js` rebuild.
 
 ---
 
