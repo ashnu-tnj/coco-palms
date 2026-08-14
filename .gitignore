@@ -29,3 +29,7 @@ Desktop.ini
 
 # Local tooling
 .claude/settings.local.json
+
+# Internal working notes — client-confidential, never publish
+REVIEW-BEFORE-SENDING.md
+SOURCE-NOTES.md

@@ -127,16 +127,6 @@ gitignored — they are rebuilt from source.
 
 ---
 
-## Facts to settle before launch
-
-- **Commissioning year is inconsistent in the source deck.** The stat block says
-  the dehydration facility was commissioned in 2025; the body copy says 2026.
-  The site currently avoids stating a year. Pick one and update both.
-- Confirm the release-specification limits in the Quality table against the
-  current NABL lab certificates before publishing them as a commitment.
-
----
-
 ## Contact
 
 Skylanes and Allied Products
