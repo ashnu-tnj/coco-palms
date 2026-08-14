@@ -27,8 +27,13 @@
   --line-dark:    color-mix(in srgb, var(--on-dark) 16%, transparent);
   --line-dark-2:  color-mix(in srgb, var(--on-dark) 8%, transparent);
 
-  --serif: "Fraunces", "Cambria", Georgia, "Times New Roman", serif;
-  --sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Spectral: constant stroke contrast at every size, so the 110px hero and
+     the 68px section heads are the same voice — and its thins stay thick
+     enough to hold white over photography. IBM Plex Sans: digits are 600/1000
+     units tabular BY DEFAULT, so the spec tables lock without a tnum toggle
+     anyone can forget, and its crossbarred I reads apart from l in "AOCS Ca 5a-40". */
+  --serif: "Spectral", "Cambria", Georgia, "Times New Roman", serif;
+  --sans:  "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
   --s5: 48px; --s6: 64px; --s7: 96px; --s8: 128px;
@@ -52,9 +57,10 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.62;
-  font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
+  font-size: 16.5px;
+  line-height: 1.64;
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -67,7 +73,7 @@ body::after {
 }
 
 img, svg, video { display: block; max-width: 100%; }
-h1, h2, h3, h4 { margin: 0; font-family: var(--serif); font-weight: 400; letter-spacing: -0.022em; line-height: 1.05; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--serif); font-weight: 600; letter-spacing: -0.018em; line-height: 1.08; }
 /* figure/blockquote/dl carry UA margins (figure is 1em 40px) — zero them all */
 p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
 p { text-wrap: pretty; }
@@ -113,11 +119,15 @@ table { border-collapse: collapse; width: 100%; }
 }
 .dark .eyebrow, .deep .eyebrow, .hero .eyebrow { color: var(--gold-bright); }
 
-.d1 { font-size: clamp(46px, 8.6vw, 118px); line-height: 0.93; letter-spacing: -0.038em; }
-.d2 { font-size: clamp(34px, 5vw, 68px); line-height: 1.02; letter-spacing: -0.03em; }
-.d3 { font-size: clamp(24px, 2.7vw, 36px); line-height: 1.12; }
+/* Spectral has a tall x-height and short ascenders, so it sets denser than a
+   Didone at the same px — it takes weight 600 to hold reversed on photography
+   and only light negative tracking before the counters close up. */
+.d1 { font-size: clamp(44px, 8.2vw, 112px); line-height: 1.0; letter-spacing: -0.028em; font-weight: 600; }
+.d2 { font-size: clamp(33px, 4.8vw, 64px); line-height: 1.06; letter-spacing: -0.022em; font-weight: 600; }
+.d3 { font-size: clamp(23px, 2.6vw, 34px); line-height: 1.16; letter-spacing: -0.015em; font-weight: 600; }
 
-.lead { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.62; color: var(--ink-2); max-width: 60ch; }
+.lead { font-variant-numeric: proportional-nums;
+   font-size: clamp(17px, 1.4vw, 20px); line-height: 1.62; color: var(--ink-2); max-width: 60ch; }
 .dark .lead, .deep .lead { color: var(--on-dark-2); }
 .muted { color: var(--ink-3); font-size: 13.5px; line-height: 1.5; }
 .dark .muted, .deep .muted { color: var(--on-dark-2); }
@@ -287,19 +297,20 @@ table { border-collapse: collapse; width: 100%; }
   padding-top: 132px; background: var(--forest-deep); overflow: hidden;
 }
 .hero__media { position: absolute; inset: -8% 0; z-index: -2; will-change: transform; }
+/* the frame is a symmetric chamber corridor, so keep it centred and drift
+   only slightly — a hard zoom throws the symmetry away */
 .hero__media img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 56%;
-  filter: brightness(1.24) contrast(1.08) saturate(1.06);
-  animation: kb 26s var(--ease) infinite alternate;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 50%;
+  animation: kb 34s var(--ease) infinite alternate;
 }
-@keyframes kb { from { transform: scale(1.04); } to { transform: scale(1.16); } }
+@keyframes kb { from { transform: scale(1.01); } to { transform: scale(1.08); } }
 
 .hero__scrim {
   position: absolute; inset: 0; z-index: -1;
   background:
-    radial-gradient(78% 62% at 74% 34%, rgba(232,188,92,.13) 0%, transparent 62%),
-    linear-gradient(180deg, rgba(7,23,16,.74) 0%, rgba(7,23,16,.14) 30%, rgba(7,23,16,.56) 64%, rgba(7,23,16,.96) 100%),
-    linear-gradient(96deg, rgba(7,23,16,.84) 0%, rgba(7,23,16,.48) 44%, rgba(7,23,16,.04) 82%);
+    radial-gradient(78% 62% at 74% 34%, rgba(232,188,92,.12) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(7,23,16,.70) 0%, rgba(7,23,16,.10) 30%, rgba(7,23,16,.52) 64%, rgba(7,23,16,.95) 100%),
+    linear-gradient(96deg, rgba(7,23,16,.80) 0%, rgba(7,23,16,.36) 46%, rgba(7,23,16,0) 78%);
 }
 .hero__body { max-width: var(--maxw); margin-inline: auto; width: 100%; padding: 0 var(--gutter) var(--s6); }
 .hero h1 { color: #FFF; max-width: 14ch; }
@@ -396,20 +407,17 @@ table { border-collapse: collapse; width: 100%; }
 .prod__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.72); transition: transform 900ms var(--ease2), filter 700ms var(--ease); }
 .prod:hover .prod__img img { transform: scale(1.05); filter: saturate(1.02); }
 .prod__img--pack { background: radial-gradient(112% 88% at 50% 8%, #FFFFFF 0%, var(--cream) 54%, var(--cream-deep) 100%); }
-/* contact shadow so the cut-out bottle sits on the surface */
-.prod__img--pack::after {
-  content: ""; position: absolute; left: 50%; bottom: 9%; width: 34%; height: 16px;
-  transform: translateX(-50%); border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(24,40,28,.34), transparent 72%);
-  transition: width 700ms var(--ease2), opacity 700ms var(--ease);
-}
+/* The pack bleeds off the bottom of the card: the bottle's base is occluded
+   by a desk nameplate in every usable frame, so it is cropped deliberately
+   rather than floated with a fake contact shadow. */
 .prod__img--pack img {
   object-fit: contain;
-  padding: 6% 0 11%;
-  filter: drop-shadow(0 14px 20px rgba(24,40,28,.16));
+  object-position: center bottom;
+  padding: 7% 0 0;
+  filter: drop-shadow(0 18px 26px rgba(24,40,28,.18));
+  transform-origin: center bottom;
 }
-.prod:hover .prod__img--pack img { transform: scale(1.05) rotate(-1.6deg); }
-.prod:hover .prod__img--pack::after { width: 30%; opacity: .8; }
+.prod:hover .prod__img--pack img { transform: scale(1.04); }
 
 .prod__body { padding: clamp(24px, 2.8vw, 40px); display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .prod__num { font-family: var(--serif); font-size: 12.5px; letter-spacing: 0.14em; color: var(--gold); font-variant-numeric: tabular-nums; }

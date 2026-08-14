@@ -38,11 +38,10 @@ GitHub Pages, or plain nginx. Publish directory is `site`, build command is none
 - **The enquiry form has no backend.** Submitting composes a `mailto:` to
   `info@blackboxtraders.in`. Swap it for a real endpoint (Formspree, a Worker,
   your CRM) in `site/main.js` before launch.
-- Fonts load from Google Fonts (Fraunces + Inter). Self-host them if you need
-  the page to work offline or want to drop the third-party request.
-- Photography comes from the company profile video stills, resized and
-  recompressed by `build/` tooling. `site/img/logo.png` and `site/img/bottle.png`
-  are background-removed cut-outs.
+- Fonts load from Google Fonts (Spectral + IBM Plex Sans). Self-host them if you
+  need the page to work offline or want to drop the third-party request.
+- Images are served as WebP (2.7 MB total). Matching `.jpg`/`.png` originals sit
+  alongside them in `site/img/` if you need a fallback or a print-resolution copy.
 - Motion is gated behind `prefers-reduced-motion`; every section is readable
   and usable with JavaScript disabled.
 
@@ -52,11 +51,61 @@ GitHub Pages, or plain nginx. Publish directory is `site`, build command is none
 | --- | --- |
 | Surfaces | `--paper` `#FCFAF5`, `--cream` `#F4EFE3`, `--forest` `#123521`, `--forest-deep` `#071710` |
 | Accent | `--gold` `#A9740F`, `--gold-bright` `#E8BC5C` — the oil drop, used sparingly |
-| Type | Fraunces (display, optical sizing) · Inter (UI and body) |
+| Type | Spectral 600 (display) · IBM Plex Sans (UI, body, tables) |
 | Rhythm | 8px base scale, `--s1` … `--s8` |
 
 The droplet glyph — a clipped polygon — repeats as the eyebrow marker, list
 bullet, and marquee separator.
+
+**Why these two faces.** Spectral holds a constant stroke contrast at every
+size, so the 112px hero and the 64px section heads read as one voice, and its
+thins stay thick enough to survive white-on-photography — the failure mode that
+made the previous display face fall apart over the plant imagery. IBM Plex Sans
+was drawn for an industrial manufacturer and its digits are 600/1000 units
+**tabular by default**, so the release-specification and Incoterms tables align
+without a `tabular-nums` toggle that a later edit could silently drop. Body
+prose opts back into proportional figures via `.lead`.
+
+---
+
+## How the photography was made
+
+Every image is re-extracted from the company profile film
+(`COCO PALMS1 (1).MP4`, 1920×960, 24 fps) rather than lifted from the deck. The
+scripts are not checked in — they were one-shot tooling — but the method matters
+if you ever re-cut these:
+
+1. **Locate.** Decode the whole film to 160×80 greyscale once and match each
+   required shot by normalised cross-correlation, which is grade-invariant.
+2. **Pick the sharp frame.** The deck's stills had been grabbed on exact
+   one-second boundaries — whatever frame landed there, motion blur included.
+   Scanning ±1 s at full resolution and taking the highest variance-of-Laplacian
+   gives a genuinely sharp frame instead. Gains ran from 1.05× to 7.6×.
+3. **Denoise.** Re-extract the winner through ffmpeg's `atadenoise`, a
+   motion-aware temporal filter that strips H.264 mosquito noise without
+   smearing moving subjects.
+4. **Grade.** Percentile black/white point (this is what removes the haze that
+   reads as "not crisp"), a gentle S-curve, saturation tapered off in the
+   highlights, and a small warm bias in the midtones.
+5. **Sharpen in two passes.** A wide-radius unsharp for local contrast, then a
+   fine-radius pass *after* resizing to delivery size.
+
+Six shots could not be fixed by the ±1 s search and were hand-picked from wider
+scans — the hero, the PLC panel, the kernel heap, the crew photo, the sorting
+line and the logo plate.
+
+### Known limits of the source footage
+
+- **There is no high-pressure-wash shot in the film.** The process copy lists it
+  as step 04, but nothing on camera shows it. The hygiene section now uses a
+  hand-sorting frame captioned for what it actually is. If washing matters
+  commercially, it needs to be shot.
+- **There is no real product photography.** The bottle is a background element on
+  the founder's desk; its base is occluded by a nameplate in every frame, so the
+  pack shot is cropped to bleed off the card. A studio shot of the actual bottle
+  is the single highest-value asset to add.
+- The macro shots (oil pour, PLC screen) are shallow-focus by construction and
+  will never be sharp.
 
 ---
 
