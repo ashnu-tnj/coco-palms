@@ -1,0 +1,7 @@
+# Only site/ is served (vercel.json -> outputDirectory). Everything below is the
+# deck pipeline and its source material: needed in git, never needed by the CDN,
+# and about 20 MB of upload per deployment if left in.
+assets/
+build/
+*.pptx
+*.pdf

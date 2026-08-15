@@ -337,10 +337,11 @@ table { border-collapse: collapse; width: 100%; }
 
 /* stat rail */
 .rail { position: relative; border-top: 1px solid var(--line-dark-2); background: color-mix(in srgb, var(--forest-deep) 55%, transparent); backdrop-filter: blur(12px); }
-.rail__in { max-width: var(--maxw); margin-inline: auto; padding: var(--s4) var(--gutter); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s3); }
+.rail__in { max-width: var(--maxw); margin-inline: auto; padding: var(--s4) var(--gutter); display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s3); }
 .rail dt { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-dark-2); }
 .rail dd { margin: 8px 0 0; font-family: var(--serif); font-size: clamp(26px, 2.7vw, 40px); color: #FFF; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .rail dd small { font-family: var(--sans); font-size: 12.5px; font-weight: 500; color: var(--on-dark-2); letter-spacing: 0; margin-left: 2px; }
+@media (max-width: 1040px) { .rail__in { grid-template-columns: repeat(3, 1fr); gap: var(--s4) var(--s3); } }
 @media (max-width: 780px) { .rail__in { grid-template-columns: repeat(2, 1fr); gap: var(--s4) var(--s3); } }
 
 /* ---------- 10. Marquee ---------- */
@@ -406,18 +407,13 @@ table { border-collapse: collapse; width: 100%; }
 .prod__img { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--cream-deep); }
 .prod__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.72); transition: transform 900ms var(--ease2), filter 700ms var(--ease); }
 .prod:hover .prod__img img { transform: scale(1.05); filter: saturate(1.02); }
-.prod__img--pack { background: radial-gradient(112% 88% at 50% 8%, #FFFFFF 0%, var(--cream) 54%, var(--cream-deep) 100%); }
-/* The pack bleeds off the bottom of the card: the bottle's base is occluded
-   by a desk nameplate in every usable frame, so it is cropped deliberately
-   rather than floated with a fake contact shadow. */
-.prod__img--pack img {
-  object-fit: contain;
-  object-position: center bottom;
-  padding: 7% 0 0;
-  filter: drop-shadow(0 18px 26px rgba(24,40,28,.18));
-  transform-origin: center bottom;
-}
-.prod:hover .prod__img--pack img { transform: scale(1.04); }
+.prod__img--pack { background: var(--cream); }
+/* Studio pack shot, framed to 16:10 with the backdrop re-toned to --cream, so
+   it fills the card like the process photography rather than floating. It opts
+   out of the saturate(.72) unifier applied to the plant shots — that grade is
+   there to settle mixed on-site footage, and it mutes the cap and the logo. */
+.prod__img--pack img { filter: none; }
+.prod:hover .prod__img--pack img { filter: none; transform: scale(1.04); }
 
 .prod__body { padding: clamp(24px, 2.8vw, 40px); display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .prod__num { font-family: var(--serif); font-size: 12.5px; letter-spacing: 0.14em; color: var(--gold); font-variant-numeric: tabular-nums; }
