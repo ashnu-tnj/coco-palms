@@ -659,7 +659,10 @@ table { border-collapse: collapse; width: 100%; }
 .ftr li { font-size: 15px; display: flex; align-items: center; min-height: 44px; }
 .ftr a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--on-dark-2); transition: color var(--dur) var(--ease); }
 .ftr a:hover { color: #FFF; }
-.ftr__brand img { width: 60px; margin-bottom: var(--s2); }
+/* height:auto is load-bearing. The markup carries width/height attributes, and
+   those act as presentational hints; setting only width here let the height
+   hint win, rendering the mark 60x848 instead of 60x67. */
+.ftr__brand img { width: 60px; height: auto; margin-bottom: var(--s2); }
 .ftr__brand p { font-size: 15px; line-height: 1.6; max-width: 38ch; }
 .ftr__bot { margin-top: var(--s6); padding-top: var(--s3); border-top: 1px solid var(--line-dark-2); display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); justify-content: space-between; font-size: 13px; }
 
