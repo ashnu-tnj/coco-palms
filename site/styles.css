@@ -640,7 +640,6 @@ table { border-collapse: collapse; width: 100%; }
 .field input::placeholder, .field textarea::placeholder { color: color-mix(in srgb, var(--on-dark-2) 62%, transparent); }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold-bright); background: color-mix(in srgb, var(--on-dark) 10%, transparent); }
 .form .btn { justify-self: start; }
-.form__note { font-size: 13px; color: var(--on-dark-2); line-height: 1.55; }
 .form__ok { display: none; padding: 15px var(--s2); border: 1px solid var(--gold-bright); border-radius: var(--radius); background: color-mix(in srgb, var(--gold-bright) 13%, transparent); color: #FFF; font-size: 15px; }
 .form__ok[data-show="true"] { display: block; }
 
